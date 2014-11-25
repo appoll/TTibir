@@ -19,4 +19,6 @@
 
     <string name = "login_error_message">Please make sure you enter username and password</string>
     <string name = "login_error_title">0ops!</string>
+
+    <string name="menu_logout_label">Logout</string>
 </resources>
