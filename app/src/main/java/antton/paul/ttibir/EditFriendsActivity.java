@@ -72,6 +72,8 @@ public class EditFriendsActivity extends ListActivity {
                             usernames
                     );
                     setListAdapter(adapter);
+
+                    addFriendCheckmarks();
                 }
                 else{
                     Log.e(TAG, e.getMessage());
@@ -83,6 +85,33 @@ public class EditFriendsActivity extends ListActivity {
 
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                }
+            }
+        });
+    }
+
+    private void addFriendCheckmarks() {
+        mFriendsRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+                if (e == null)
+                {
+                    // list returned - look for a match
+                    for (int i =0; i<mUsers.size(); i++)
+                    {
+                        ParseUser user = mUsers.get(i);
+
+                        for (ParseUser friend : friends){
+                            if (user.getObjectId().equals(friend.getObjectId()))
+                            {
+                                getListView().setItemChecked(i,true);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Log.e(TAG,e.getMessage());
                 }
             }
         });
