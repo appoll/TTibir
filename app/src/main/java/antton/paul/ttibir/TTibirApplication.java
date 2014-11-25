@@ -15,9 +15,6 @@ public class TTibirApplication extends Application {
         super.onCreate();
         Parse.initialize(this, "wcVmVWTEHrSCuZ4e08AfLpuKkTpp0vAKVkthI1Lb", "uZvQa4jHNUMldnHVP7kPiRzK7Ldf87kYPPskpjZk");
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
     }
 
 }
