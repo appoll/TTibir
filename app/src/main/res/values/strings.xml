@@ -24,4 +24,5 @@
     <string name="menu_edit_friends_label">Edit friends</string>
     <string name="title_activity_edit_friends">Edit Friends</string>
     <string name="error_title">Sorry Oops Oops</string>
+    <string name="menu_camera_label">Camera</string>
 </resources>
