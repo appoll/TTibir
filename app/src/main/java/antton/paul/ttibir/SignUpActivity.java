@@ -75,8 +75,8 @@ public class SignUpActivity extends Activity {
                             else
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
-                                builder.setMessage(R.string.signup_error_message)
-                                        .setTitle(e.getMessage())
+                                builder.setMessage(e.getMessage())
+                                        .setTitle(R.string.signup_error_title)
                                         .setPositiveButton(android.R.string.ok, null);
 
                                 AlertDialog dialog = builder.create();
