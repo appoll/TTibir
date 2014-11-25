@@ -6,12 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="antton.paul.ttibir.TTibirApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".TTibirApplication"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="antton.paul.ttibir.MainActivity"
             android:label="@string/app_name"
@@ -30,9 +29,17 @@
         <activity
             android:name="antton.paul.ttibir.SignUpActivity"
             android:label="@string/title_activity_sign_up"
+            android:parentActivityName="antton.paul.ttibir.LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="antton.paul.ttibir.EditFriendsActivity"
+            android:label="@string/title_activity_edit_friends"
+            android:parentActivityName="antton.paul.ttibir.MainActivity" >
             android:screenOrientation="portrait"
-            android:parentActivityName=".LoginActivity"
-            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="antton.paul.ttibir.MainActivity" />
         </activity>
     </application>
 
