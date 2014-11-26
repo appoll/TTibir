@@ -2,7 +2,7 @@ package antton.paul.ttibir;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
+import android.util.Pair;
 /**
  * Created by Paul's on 26-Nov-14.
  */
