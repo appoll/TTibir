@@ -3,6 +3,7 @@ package antton.paul.ttibir;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class InboxFragment extends ListFragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> messages, ParseException e) {
-                getActivity().setProgressBarIndeterminateVisibility(true);
+                getActivity().setProgressBarIndeterminateVisibility(false);
 
                 if (e == null)
                 {
@@ -57,11 +58,16 @@ public class InboxFragment extends ListFragment {
                         i++;
 
                     }
+/*
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             getListView().getContext(),
                             android.R.layout.simple_list_item_1,
                             usernames
                     );
+*/
+
+                  MessageAdapter adapter = new MessageAdapter(getListView().getContext(),mMessages);
+
                     setListAdapter(adapter);
                 }
             }
