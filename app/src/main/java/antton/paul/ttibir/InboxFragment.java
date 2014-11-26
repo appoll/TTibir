@@ -70,10 +70,16 @@ public class InboxFragment extends ListFragment {
                             usernames
                     );
 */
+                    if (getListView().getAdapter() == null) {
+                        MessageAdapter adapter = new MessageAdapter(getListView().getContext(), mMessages);
 
-                  MessageAdapter adapter = new MessageAdapter(getListView().getContext(),mMessages);
-
-                    setListAdapter(adapter);
+                        setListAdapter(adapter);
+                    }
+                    else
+                    {
+                        // refill the adapter
+                        ((MessageAdapter)getListView().getAdapter()).refill(mMessages);
+                    }
                 }
             }
         });
