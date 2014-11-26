@@ -62,6 +62,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     }
                     break;
                 case 1: //take video
+                    Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+                    if (mMediaUri == null)
+                    {
+                        // display an error
+                        Toast.makeText(MainActivity.this, R.string.error_external_storage,Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+                        videoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+                        videoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY,0);
+                        startActivityForResult(videoIntent,TAKE_VIDEO_REQUEST);
+                    }
                     break;
                 case 2: //choose picture
                     break;
