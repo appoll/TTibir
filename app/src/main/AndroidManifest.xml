@@ -4,10 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true"
-        />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:name="antton.paul.ttibir.TTibirApplication"
         android:allowBackup="true"
@@ -38,6 +40,15 @@
         <activity
             android:name="antton.paul.ttibir.EditFriendsActivity"
             android:label="@string/title_activity_edit_friends"
+            android:parentActivityName="antton.paul.ttibir.MainActivity" >
+            android:screenOrientation="portrait"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="antton.paul.ttibir.MainActivity" />
+        </activity>
+        <activity
+            android:name="antton.paul.ttibir.RecipientsActivity"
+            android:label="@string/title_activity_recipients"
             android:parentActivityName="antton.paul.ttibir.MainActivity" >
             android:screenOrientation="portrait"
             <meta-data
