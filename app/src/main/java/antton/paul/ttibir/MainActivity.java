@@ -1,6 +1,9 @@
 package antton.paul.ttibir;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -41,6 +44,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public static final int MEDIA_TYPE_IMAGE = 4;
     public static final int MEDIA_TYPE_VIDEO = 5;
 
+    public static final int FILE_SIZE_LIMIT = 1024*1024*10; //10 MB
     protected Uri mMediaUri;
 
     protected DialogInterface.OnClickListener mDialogListener = new DialogInterface.OnClickListener(){
@@ -83,6 +87,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
                     break;
                 case 3: //choose video
+                    Intent chooseVideoIntent = new Intent (Intent.ACTION_GET_CONTENT);
+                    chooseVideoIntent.setType("video/*");
+                    Toast.makeText(MainActivity.this, R.string.video_file_size_warning,Toast.LENGTH_LONG).show();
+                    startActivityForResult(chooseVideoIntent,PICK_VIDEO_REQUEST);
                     break;
 
             }
@@ -220,7 +228,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK){
-            
 
             if (requestCode == PICK_PHOTO_REQUEST || requestCode == PICK_VIDEO_REQUEST)
             {
@@ -231,6 +238,38 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 else
                 {
                     mMediaUri = data.getData();
+                }
+                Log.i(TAG, "Media URI: " + mMediaUri);
+                if (requestCode == PICK_VIDEO_REQUEST)
+                {
+                    // make sure the file is less than 10 MB
+                    int fileSize = 0;
+
+                    InputStream inputStream = null;
+                    try {
+                        inputStream = getContentResolver().openInputStream(mMediaUri);
+                        fileSize = inputStream.available();
+                    }
+                    catch (FileNotFoundException e) {
+                        Toast.makeText(this, getString(R.string.error_opening_file),Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    catch (IOException e){
+                        Toast.makeText(this, getString(R.string.error_opening_file),Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    finally {
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                            /*intentionally blank */
+                        }
+                    }
+                    if (fileSize >= FILE_SIZE_LIMIT){
+                        Toast.makeText(this,getString(R.string.error_file_size_too_large),Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
                 }
             }
 
