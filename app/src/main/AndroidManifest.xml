@@ -55,6 +55,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="antton.paul.ttibir.MainActivity" />
         </activity>
+        <activity
+            android:name="antton.paul.ttibir.ViewImageActivity"
+            android:label="@string/title_activity_view_image"
+            android:screenOrientation="portrait"
+            android:parentActivityName="antton.paul.ttibir.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="antton.paul.ttibir.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
