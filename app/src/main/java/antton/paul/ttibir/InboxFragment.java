@@ -110,5 +110,21 @@ public class InboxFragment extends ListFragment {
             intent.setDataAndType(fileUri,"video/*");
             startActivity(intent);
         }
+
+        // Delete the message
+        // check the recipients. delete one by one until list of recipients is empty.
+        // when list is empty, delete message from parse
+        List<String> ids = message.getList(ParseConstants.KEY_RECIPIENT_IDS);
+
+        if (ids.size() == 1)
+        {
+            // last recipient - delete message from back-end
+            message.deleteInBackground();
+        }
+        else
+        {
+            // remove the recipient and save
+        }
+
     }
 }
