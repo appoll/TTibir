@@ -1,15 +1,17 @@
 package antton.paul.ttibir;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
@@ -17,12 +19,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
-import android.view.LayoutInflater;
+import java.util.Date;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+
 import android.view.Window;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -35,13 +37,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public static final int TAKE_VIDEO_REQUEST =1;
     public static final int PICK_PHOTO_REQUEST =2;
     public static final int PICK_VIDEO_REQUEST =3;
+
+    public static final int MEDIA_TYPE_IMAGE = 4;
+    public static final int MEDIA_TYPE_VIDEO = 5;
+
+    protected Uri mMediaUri;
+
     protected DialogInterface.OnClickListener mDialogListener = new DialogInterface.OnClickListener(){
         @Override
         public void onClick(DialogInterface dialogInterface, int which) {
             switch (which){
                 case 0: // take picture
                     Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePhotoIntent,TAKE_PHOTO_REQUEST);
+                    mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+
+                    if (mMediaUri == null)
+                    {
+                        // display an error
+                        Toast.makeText(MainActivity.this, R.string.error_external_storage,Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+                        startActivityForResult(takePhotoIntent, TAKE_PHOTO_REQUEST);
+                    }
                     break;
                 case 1: //take video
                     break;
@@ -52,6 +70,68 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             }
         }
+
+        private Uri getOutputMediaFileUri (int mediaType)
+        {
+            // check if SDcard is mounted
+            // using environment.getexternalstoragestate
+            if (isExternalStorageAvailable())
+            {   // get the URI
+
+                //1. get the external storage directory
+
+                String appName = MainActivity.this.getString(R.string.app_name);
+                File mediaStorageDir = new File(
+                        Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES),appName);
+
+                //2. create subdirectory
+                if (!mediaStorageDir.exists())
+                {
+                    if (!mediaStorageDir.mkdirs()){
+                        Log.e(TAG,"Failed to create directory");
+                        return null;
+                    }
+                }
+                //3. create a file name
+                //4. create the file
+                File mediaFile;
+                Date now = new Date();
+                String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.GERMANY).format(now);
+
+                String path = mediaStorageDir.getPath() + File.separator;
+                if (mediaType == MEDIA_TYPE_IMAGE)
+                {
+                    mediaFile = new File(path+ "IMG_" + timestamp + ".jpg");
+                }
+                else if (mediaType == MEDIA_TYPE_VIDEO)
+                {
+                    mediaFile = new File(path+ "VID_" + timestamp + ".mp4");
+                }
+                else
+                {
+                    return null;
+                }
+
+                Log.d(TAG,"File: "+ Uri.fromFile(mediaFile));
+
+                //5. return the file's URI
+                return Uri.fromFile(mediaFile);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private boolean isExternalStorageAvailable(){
+            String state = Environment.getExternalStorageState();
+
+            if (state.equals(Environment.MEDIA_MOUNTED))
+                return true;
+            return false;
+        }
+
     };
 
     /**
