@@ -3,13 +3,16 @@ package antton.paul.ttibir.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,8 +44,9 @@ public class EditFriendsActivity extends Activity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.user_grid);
         mGridView = (GridView)findViewById(R.id.friendsGrid);
-
         mGridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
+
+        mGridView.setOnItemClickListener(mOnItemClickListener);
 
         TextView emptyTextView = (TextView)findViewById(android.R.id.empty);
         mGridView.setEmptyView(emptyTextView);
@@ -141,32 +145,38 @@ public class EditFriendsActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
 
-        if (getListView().isItemChecked(position))
-        {
-            //add friend
-            mFriendsRelation.add(mUsers.get(position));
-        }
-        else
-        {
-            // remove friend
-            mFriendsRelation.remove(mUsers.get(position));
-        }
 
-        mCurrentUser.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e !=null)
-                {
-                    Log.e(TAG, e.getMessage());
-                }
+    protected AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+            // the view is the root view, the relative layout of the user item
+            ImageView checkImageView = (ImageView)view.findViewById(R.id.checkImageView);
+
+            if (mGridView.isItemChecked(position))
+            {
+                //add friend
+                mFriendsRelation.add(mUsers.get(position));
+                checkImageView.setVisibility(View.VISIBLE);
             }
-        });
+            else
+            {
+                // remove friend
+                mFriendsRelation.remove(mUsers.get(position));
+                checkImageView.setVisibility(View.INVISIBLE);
+            }
 
-    }
-    */
+            mCurrentUser.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e !=null)
+                    {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+            });
+
+        }
+    };
 }
