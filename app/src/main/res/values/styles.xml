@@ -101,6 +101,7 @@
     
     <style name="Theme.Ttibir.LightPurpleBackground">
         <item name="android:background">@color/light_purple_button</item>
+        <item name="android:divider">@null</item>
     </style>
 
     <style name="Theme.Ttibir.Overflow" parent = "@android:style/Widget.ActionButton.Overflow">
