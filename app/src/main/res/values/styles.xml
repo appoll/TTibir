@@ -96,9 +96,14 @@
 
 
         <item name="android:listViewStyle">@style/Theme.Ttibir.LightPurpleBackground</item>
-        <item name="android:gridViewStyle">@style/Theme.Ttibir.LightPurpleBackground</item>
+        <item name="android:gridViewStyle">@style/Theme.Ttibir.LightPurpleBackground.GridView</item>
     </style>
-    
+
+    <style name="Theme.Ttibir.LightPurpleBackground.GridView">
+        <item name="android:padding">@dimen/user_grid_spacing</item>
+
+    </style>
+
     <style name="Theme.Ttibir.LightPurpleBackground">
         <item name="android:background">@color/light_purple_button</item>
         <item name="android:divider">@null</item>
