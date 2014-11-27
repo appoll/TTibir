@@ -11,8 +11,8 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email address</string>
-    <string name="login_button_label">Login</string>
-    <string name="sign_up_text">Sign up!</string>
+    <string name="login_button_label">SIGN IN</string>
+    <string name="sign_up_text">Don\'t have an account? Sign up!</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="signup_error_message">Please make sure you enter all 3 fields</string>
     <string name="signup_error_title">0ops!</string>
@@ -48,5 +48,7 @@
     <string name="pizdamatii">PULAMEA</string>
     <string name="title_activity_view_image">TTibir</string>
     <string name="asd">watt</string>
+    <string name="content_desc_backgroud">TTibir frog Background Image</string>
+    <string name="subtitle">A Treehouse Project</string>
 
 </resources>
