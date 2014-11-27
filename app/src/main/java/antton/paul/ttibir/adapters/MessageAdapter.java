@@ -1,9 +1,7 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.adapters;
 
 import android.content.Context;
 
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,9 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 
 import java.util.List;
+
+import antton.paul.ttibir.utils.ParseConstants;
+import antton.paul.ttibir.R;
 
 /**
  * Created by Paul's on 26-Nov-14.

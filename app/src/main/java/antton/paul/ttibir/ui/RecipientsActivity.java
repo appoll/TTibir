@@ -1,6 +1,5 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -25,6 +23,10 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import antton.paul.ttibir.utils.FileHelper;
+import antton.paul.ttibir.utils.ParseConstants;
+import antton.paul.ttibir.R;
 
 
 public class RecipientsActivity extends ListActivity {
@@ -155,7 +157,7 @@ public class RecipientsActivity extends ListActivity {
         message.put(ParseConstants.KEY_RECIPIENT_IDS, getRecipientIds());
         message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
 
-        byte[] fileBytes = FileHelper.getByteArrayFromFile(this,mMediaUri);
+        byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
 
         if (fileBytes == null)
         {

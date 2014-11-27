@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Ttibir" >
         <activity
-            android:name="antton.paul.ttibir.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -27,39 +27,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="antton.paul.ttibir.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="antton.paul.ttibir.SignUpActivity"
+            android:name=".ui.SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:parentActivityName="antton.paul.ttibir.LoginActivity"
+            android:parentActivityName=".ui.LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="antton.paul.ttibir.EditFriendsActivity"
+            android:name=".ui.EditFriendsActivity"
             android:label="@string/title_activity_edit_friends"
-            android:parentActivityName="antton.paul.ttibir.MainActivity" >
+            android:parentActivityName=".ui.MainActivity" >
             android:screenOrientation="portrait"
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="antton.paul.ttibir.MainActivity" />
         </activity>
         <activity
-            android:name="antton.paul.ttibir.RecipientsActivity"
+            android:name=".ui.RecipientsActivity"
             android:label="@string/title_activity_recipients"
-            android:parentActivityName="antton.paul.ttibir.MainActivity" >
+            android:parentActivityName=".ui.MainActivity" >
             android:screenOrientation="portrait"
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="antton.paul.ttibir.MainActivity" />
         </activity>
         <activity
-            android:name="antton.paul.ttibir.ViewImageActivity"
+            android:name=".ui.ViewImageActivity"
             android:label="@string/title_activity_view_image"
             android:screenOrientation="portrait"
-            android:parentActivityName="antton.paul.ttibir.MainActivity" >
+            android:parentActivityName=".ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="antton.paul.ttibir.MainActivity" />

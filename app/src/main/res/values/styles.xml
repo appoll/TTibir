@@ -93,6 +93,14 @@
 
         <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
         <item name = "android:actionOverflowButtonStyle">@style/Theme.Ttibir.Overflow</item>
+
+
+        <item name="android:listViewStyle">@style/Theme.Ttibir.LightPurpleBackground</item>
+        <item name="android:gridViewStyle">@style/Theme.Ttibir.LightPurpleBackground</item>
+    </style>
+    
+    <style name="Theme.Ttibir.LightPurpleBackground">
+        <item name="android:background">@color/light_purple_button</item>
     </style>
 
     <style name="Theme.Ttibir.Overflow" parent = "@android:style/Widget.ActionButton.Overflow">

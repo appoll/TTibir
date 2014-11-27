@@ -1,11 +1,9 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -13,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -21,6 +18,9 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.List;
+
+import antton.paul.ttibir.utils.ParseConstants;
+import antton.paul.ttibir.R;
 
 
 public class EditFriendsActivity extends ListActivity {

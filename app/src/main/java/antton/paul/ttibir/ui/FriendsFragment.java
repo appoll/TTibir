@@ -1,10 +1,9 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.ui;
 
 
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,9 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.List;
+
+import antton.paul.ttibir.utils.ParseConstants;
+import antton.paul.ttibir.R;
 // because i'm using the viewpager
 
 /**

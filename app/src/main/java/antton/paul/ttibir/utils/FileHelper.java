@@ -1,4 +1,4 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

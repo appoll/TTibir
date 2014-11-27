@@ -1,4 +1,4 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.adapters;
 
 /**
  * Created by Paul's on 25-Nov-14.
@@ -12,6 +12,10 @@ import android.content.Context;
 
 
 import java.util.Locale;
+
+import antton.paul.ttibir.R;
+import antton.paul.ttibir.ui.FriendsFragment;
+import antton.paul.ttibir.ui.InboxFragment;
 
 /**
  * A {@link android.support.v13.app.FragmentPagerAdapter} that returns a fragment corresponding to

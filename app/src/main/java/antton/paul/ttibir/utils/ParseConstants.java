@@ -1,4 +1,4 @@
-package antton.paul.ttibir;
+package antton.paul.ttibir.utils;
 
 /**
  * Created by Paul's on 25-Nov-14.
