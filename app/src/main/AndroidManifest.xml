@@ -15,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Ttibir" >
         <activity
             android:name="antton.paul.ttibir.MainActivity"
             android:label="@string/app_name"
