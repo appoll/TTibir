@@ -16,6 +16,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 import antton.paul.ttibir.R;
+import antton.paul.ttibir.TTibirApplication;
 
 
 public class SignUpActivity extends Activity {
@@ -83,6 +84,7 @@ public class SignUpActivity extends Activity {
                             setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
                                 // Success!
+                                TTibirApplication.updateParseInstallation(ParseUser.getCurrentUser());
                                 Intent intent = new Intent (SignUpActivity.this, MainActivity.class);
                                 //stop the user from going up/back
                                 //clear navigation history

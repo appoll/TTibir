@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -201,6 +202,8 @@ public class RecipientsActivity extends Activity {
                 {
                     // success
                     Toast.makeText(RecipientsActivity.this,getString(R.string.success_message), Toast.LENGTH_LONG).show();
+                    sendPushNotifications();
+
                 }
 
                 else{
@@ -213,6 +216,12 @@ public class RecipientsActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void sendPushNotifications() {
+        ParseQuery<ParseInstallation> query = ParseInstallation.getQuery();
+        query.whereContainedIn(ParseConstants.KEY_USER_ID, getRecipientIds());
+
     }
 
     protected AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {

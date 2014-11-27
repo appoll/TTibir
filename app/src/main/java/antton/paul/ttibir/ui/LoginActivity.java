@@ -17,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import antton.paul.ttibir.R;
+import antton.paul.ttibir.TTibirApplication;
 
 
 public class LoginActivity extends Activity {
@@ -81,11 +82,12 @@ public class LoginActivity extends Activity {
                     ParseUser.logInInBackground(username,password, new LogInCallback() {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
-
                             setProgressBarIndeterminateVisibility(false);
                             if (e == null){
                                 // Succcess!
                                 // Success!
+                                TTibirApplication.updateParseInstallation(parseUser);
+
                                 Intent intent = new Intent (LoginActivity.this, MainActivity.class);
                                 //stop the user from going up/back
                                 //clear navigation history
