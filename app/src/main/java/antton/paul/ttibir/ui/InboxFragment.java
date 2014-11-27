@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -30,10 +32,21 @@ import antton.paul.ttibir.R;
 public class InboxFragment extends ListFragment {
 
     protected List<ParseObject> mMessages;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_inbox, container, false);
+
+        mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefreshLayout);
+
+            mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
+            mSwipeRefreshLayout.setColorSchemeColors(
+                    R.color.swipeRefresh1,
+                    R.color.swipeRefresh2,
+                    R.color.swipeRefresh3,
+                    R.color.swipeRefresh4
+                    );
         return rootView;
     }
 
@@ -42,15 +55,25 @@ public class InboxFragment extends ListFragment {
         // get messages that have the logged in user in the recipients list
         super.onResume();
 
-        getActivity().setProgressBarIndeterminateVisibility(true);
+        //   getActivity().setProgressBarIndeterminateVisibility(true);
 
+        retrieveMessages();
+
+    }
+
+    private void retrieveMessages() {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_MESSAGES);
         query.whereEqualTo(ParseConstants.KEY_RECIPIENT_IDS, ParseUser.getCurrentUser().getObjectId());
         query.addDescendingOrder(ParseConstants.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> messages, ParseException e) {
-                getActivity().setProgressBarIndeterminateVisibility(false);
+               // getActivity().setProgressBarIndeterminateVisibility(false);
+
+                if (mSwipeRefreshLayout.isRefreshing())
+                {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
 
                 if (e == null)
                 {
@@ -85,7 +108,6 @@ public class InboxFragment extends ListFragment {
                 }
             }
         });
-
     }
 
 
@@ -136,4 +158,11 @@ public class InboxFragment extends ListFragment {
         }
 
     }
+
+    protected SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener(){
+        @Override
+        public void onRefresh() {
+            retrieveMessages();
+        }
+    };
 }

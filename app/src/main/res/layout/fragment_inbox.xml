@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity$PlaceholderFragment">
 
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    >
 
     <ListView
         android:layout_width="match_parent"
@@ -16,6 +23,7 @@
         android:clipToPadding="false"
         />
 
+</android.support.v4.widget.SwipeRefreshLayout>
     <TextView
         android:id="@android:id/empty"
         android:layout_width="match_parent"
