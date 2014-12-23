@@ -44,12 +44,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public static final int TAKE_VIDEO_REQUEST =1;
     public static final int PICK_PHOTO_REQUEST =2;
     public static final int PICK_VIDEO_REQUEST =3;
+    public static final int NEW_MESSAGE_REQUEST = 33;
 
     public static final int MEDIA_TYPE_IMAGE = 4;
     public static final int MEDIA_TYPE_VIDEO = 5;
 
     public static final int FILE_SIZE_LIMIT = 1024*1024*10; //10 MB
     protected Uri mMediaUri;
+    protected String mTextMessage;
 
     protected DialogInterface.OnClickListener mDialogListener = new DialogInterface.OnClickListener(){
         @Override
@@ -97,6 +99,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     startActivityForResult(chooseVideoIntent,PICK_VIDEO_REQUEST);
                     break;
 
+
             }
         }
 
@@ -118,7 +121,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 if (!mediaStorageDir.exists())
                 {
                     if (!mediaStorageDir.mkdirs()){
-                        Log.e(TAG,"Failed to create directory");
+
                         return null;
                     }
                 }
@@ -142,7 +145,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     return null;
                 }
 
-                Log.d(TAG,"File: "+ Uri.fromFile(mediaFile));
+
 
                 //5. return the file's URI
                 return Uri.fromFile(mediaFile);
@@ -189,7 +192,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
         else
         {
-            Log.i(TAG, currentUser.getUsername());
+          //  Log.i(TAG, currentUser.getUsername());
         }
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -244,7 +247,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 {
                     mMediaUri = data.getData();
                 }
-                Log.i(TAG, "Media URI: " + mMediaUri);
+
                 if (requestCode == PICK_VIDEO_REQUEST)
                 {
                     // make sure the file is less than 10 MB
@@ -276,30 +279,69 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     }
 
                 }
+
+                Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
+                recipientsIntent.setData(mMediaUri);
+
+                String fileType;
+                if (requestCode == PICK_PHOTO_REQUEST)
+                {
+                    fileType = ParseConstants.TYPE_IMAGE;
+                }
+                else
+                {
+                    fileType = ParseConstants.TYPE_VIDEO;
+                }
+
+                recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE, fileType);
+                startActivity(recipientsIntent);
             }
 
-            else {
+            else if (requestCode == TAKE_PHOTO_REQUEST || requestCode == TAKE_VIDEO_REQUEST)
+            {
                 // add it to the gallery
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 mediaScanIntent.setData(mMediaUri);
                 sendBroadcast(mediaScanIntent);
+
+
+                Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
+                recipientsIntent.setData(mMediaUri);
+
+                String fileType;
+                if (requestCode == TAKE_PHOTO_REQUEST)
+                {
+                    fileType = ParseConstants.TYPE_IMAGE;
+                }
+                else
+                {
+                    fileType = ParseConstants.TYPE_VIDEO;
+                }
+
+                recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE, fileType);
+                startActivity(recipientsIntent);
             }
 
-            Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
-            recipientsIntent.setData(mMediaUri);
-
-            String fileType;
-            if (requestCode == PICK_PHOTO_REQUEST || requestCode == TAKE_PHOTO_REQUEST)
+            else if (requestCode == NEW_MESSAGE_REQUEST)
             {
-                fileType = ParseConstants.TYPE_IMAGE;
-            }
-            else
-            {
-                fileType = ParseConstants.TYPE_VIDEO;
+                Toast.makeText(this, data.getStringExtra("message"), Toast.LENGTH_LONG).show();
+
+                mTextMessage = data.getStringExtra("message");
+
+                Intent recipientsIntent = new Intent(this, RecipientsActivity.class);
+
+
+                String fileType ;
+                fileType = ParseConstants.TYPE_TEXT;
+
+                recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE, fileType);
+                recipientsIntent.putExtra("textmessage", mTextMessage);
+
+                startActivity(recipientsIntent);
             }
 
-            recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE, fileType);
-            startActivity(recipientsIntent);
+
+
         }
 
         else if (resultCode != RESULT_CANCELED){
@@ -342,11 +384,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             Intent intent = new Intent (this, EditFriendsActivity.class);
             startActivity(intent);
             break;
+
         case R.id.action_camera:
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setItems(R.array.camera_choices, mDialogListener);
             AlertDialog dialog = builder.create();
             dialog.show();
+            break;
+
+        case R.id.action_text:
+            //TODO add text menu button dialog to enter message
+
+            Intent getMessageIntent = new Intent (this, NewMessageActivity.class);
+
+            startActivityForResult(getMessageIntent,NEW_MESSAGE_REQUEST);
+
+            break;
+
+
         }
 
         return super.onOptionsItemSelected(item);

@@ -91,7 +91,7 @@ public class EditFriendsActivity extends Activity {
                     addFriendCheckmarks();
                 }
                 else{
-                    Log.e(TAG, e.getMessage());
+                   // Log.e(TAG, e.getMessage());
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(EditFriendsActivity.this);
                     builder.setMessage(e.getMessage())
@@ -126,7 +126,7 @@ public class EditFriendsActivity extends Activity {
                 }
                 else
                 {
-                    Log.e(TAG,e.getMessage());
+                 //   Log.e(TAG,e.getMessage());
                 }
             }
         });
@@ -172,7 +172,7 @@ public class EditFriendsActivity extends Activity {
                 public void done(ParseException e) {
                     if (e !=null)
                     {
-                        Log.e(TAG, e.getMessage());
+                     //   Log.e(TAG, e.getMessage());
                     }
                 }
             });

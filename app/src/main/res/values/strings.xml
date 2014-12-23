@@ -32,10 +32,12 @@
     <string name="error_file_size_too_large">The selected file is too large! Select another one!</string>
 
     <string-array name="camera_choices">
+
         <item>Take picture</item>
         <item>Take video</item>
         <item>Choose picture</item>
         <item>Choose video</item>
+
     </string-array>
 
     <string name="title_activity_recipients">Choose Recipients</string>
@@ -53,5 +55,8 @@
     <string name="cancel_button_label">CANCEL</string>
     <string name="content_desc_button_divider">Button divider</string>
     <string name="push_message">You have a new message from %s!</string>
+    <string name="menu_text_label">Text</string>
+
+    <string name="title_activity_view_text_message">New message</string>
 
 </resources>

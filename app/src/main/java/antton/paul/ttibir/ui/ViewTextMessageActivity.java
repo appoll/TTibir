@@ -3,10 +3,8 @@ package antton.paul.ttibir.ui;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -15,19 +13,27 @@ import java.util.TimerTask;
 
 import antton.paul.ttibir.R;
 
+/**
+ * Created by Paul's on 23-Dec-14.
+ */
 
-public class ViewImageActivity extends Activity {
+
+public class ViewTextMessageActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_image);
+        setContentView(R.layout.activity_view_text_message);
 
-        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+        TextView sender = (TextView) findViewById(R.id.senderTextView);
 
-        Uri imageUri = getIntent().getData();
+        TextView message = (TextView) findViewById( R.id.viewMessageTextView);
 
-        Picasso.with(this).load(imageUri.toString()).into(imageView);
+        String textMessage = getIntent().getStringExtra("textmessage");
+        String messageSender = getIntent().getStringExtra("messagesender");
+
+        sender.append(messageSender);
+        message.setText(textMessage);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask(){

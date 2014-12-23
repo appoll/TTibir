@@ -50,6 +50,13 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" >
         </activity>
+
+        <activity
+            android:name=".ui.ViewTextMessageActivity"
+            android:label="@string/title_activity_view_text_message"
+            android:screenOrientation="portrait" >
+        </activity>
+
         <activity
             android:name=".ui.SignUpActivity"
             android:label="@string/title_activity_sign_up"
@@ -84,8 +91,13 @@
                 android:value="antton.paul.ttibir.MainActivity" />
         </activity>
 
+
+        <activity android:name=".ui.NewMessageActivity"
+            android:theme="@android:style/Theme.Dialog" />
+
+
         <meta-data android:name="com.parse.push.notification_icon"
-         android:resource="@drawable/ic_launcher"/>
+         android:resource="@drawable/ic_stat_ic_launcher"/>
 
 
 

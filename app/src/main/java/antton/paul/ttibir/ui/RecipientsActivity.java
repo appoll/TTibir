@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseInstallation;
@@ -46,7 +47,7 @@ public class RecipientsActivity extends Activity {
     protected MenuItem mSendMenuItem;
     protected Uri mMediaUri;
     protected String mFileType;
-
+    protected String mTextMessage;
     protected GridView mGridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,15 @@ public class RecipientsActivity extends Activity {
         TextView emptyTextView = (TextView)findViewById(android.R.id.empty);
         mGridView.setEmptyView(emptyTextView);
 
-        mMediaUri = getIntent().getData();
         mFileType = getIntent().getExtras().getString(ParseConstants.KEY_FILE_TYPE);
+
+        if (!mFileType.equals(ParseConstants.TYPE_TEXT)) {
+            mMediaUri = getIntent().getData();
+
+        }
+        else {
+            mTextMessage = getIntent().getExtras().getString("textmessage");
+        }
     }
 
 
@@ -96,7 +104,7 @@ public class RecipientsActivity extends Activity {
 
                 }
                 else {
-                         send(message);
+                        send(message);
                         finish();
                 }
                 return true;
@@ -162,21 +170,24 @@ public class RecipientsActivity extends Activity {
         message.put(ParseConstants.KEY_RECIPIENT_IDS, getRecipientIds());
         message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
 
-        byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
+        if (!mFileType.equals( ParseConstants.TYPE_TEXT)) {
+            byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
 
-        if (fileBytes == null)
-        {
-            return null;
+            if (fileBytes == null) {
+                return null;
+            } else {
+                if (mFileType.equals(ParseConstants.TYPE_IMAGE)) {
+                    fileBytes = FileHelper.reduceImageForUpload(fileBytes);
+                }
+                String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
+                ParseFile file = new ParseFile(fileName, fileBytes);
+                message.put(ParseConstants.KEY_FILE, file);
+                return message;
+            }
         }
         else
         {
-            if (mFileType.equals(ParseConstants.TYPE_IMAGE))
-            {
-                fileBytes = FileHelper.reduceImageForUpload(fileBytes);
-            }
-            String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
-            ParseFile file = new ParseFile(fileName, fileBytes);
-            message.put(ParseConstants.KEY_FILE, file);
+            message.put(ParseConstants.KEY_MESSAGE, mTextMessage);
             return message;
         }
 

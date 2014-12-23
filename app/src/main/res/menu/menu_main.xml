@@ -2,6 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
 
+<item android:id = "@+id/action_text"
+    android:title = "@string/menu_text_label"
+    android:icon="@drawable/ic_action_write"
+    android:showAsAction="always"
+    />
 
     <item android:id="@+id/action_camera"
         android:title="@string/menu_camera_label"
